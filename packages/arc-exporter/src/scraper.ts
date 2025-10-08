@@ -51,7 +51,7 @@ Pinned items (${count}) from Arc browser space.
 	const itemsSection = pinnedItems
 		.map((item) => {
 			if (item.children.length) {
-				return `## ${item.title}
+				return `## \`${item.title}\`
 ${item.children.map((child) => formatItem(child)).join("\n")}`;
 			}
 
@@ -63,6 +63,6 @@ ${item.children.map((child) => formatItem(child)).join("\n")}`;
 }
 
 function formatItem(item: ArcSidebarItem): string {
-	return `### ${item.title}
+	return `### \`${item.title}\`
 - **Link**: ${item.url}`;
 }

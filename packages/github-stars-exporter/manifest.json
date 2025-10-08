@@ -1,0 +1,11 @@
+{
+	"id": "github-stars-exporter",
+	"name": "GitHub Stars Exporter",
+	"version": "0.1.0",
+	"minAppVersion": "0.1.0",
+	"description": "Export GitHub starred repositories to Obsidian notes with automatic sync.",
+	"author": "alexei accio",
+	"authorUrl": "https://github.com/alexeiaccio",
+	"fundingUrl": "",
+	"isDesktopOnly": true
+}

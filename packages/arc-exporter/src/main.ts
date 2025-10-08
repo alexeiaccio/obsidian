@@ -5,18 +5,40 @@ import {
 	PluginSettingTab,
 	Setting,
 	type TFolder,
+	type WorkspaceLeaf,
 } from "obsidian";
 import { getPinnedItems } from "./arc/fetcher";
 import { formatSpaceNote } from "./scraper";
 import { type ArcExporterSettings, DEFAULT_SETTINGS } from "./settings";
 import { SpaceSelectorModal } from "./ui/space-selector";
 import { createExportFile, getOutputFolder } from "./utils/file-helper";
+import { ArcBrowserView, VIEW_TYPE_ARC_BROWSER } from "./ui/arc-browser-view";
 
 export default class ArcExporterPlugin extends Plugin {
 	settings: ArcExporterSettings;
 
 	async onload() {
 		await this.loadSettings();
+
+		// Register the sidebar view
+		this.registerView(
+			VIEW_TYPE_ARC_BROWSER,
+			(leaf) => new ArcBrowserView(leaf, this.settings),
+		);
+
+		// Add command to open the sidebar view
+		this.addCommand({
+			id: "open-arc-browser",
+			name: "Open Arc Browser Panel",
+			callback: () => {
+				this.activateView();
+			},
+		});
+
+		// Auto-open on startup
+		this.app.workspace.onLayoutReady(() => {
+			this.activateView();
+		});
 
 		// Add the main command
 		this.addCommand({
@@ -89,6 +111,27 @@ export default class ArcExporterPlugin extends Plugin {
 
 	onunload() {
 		// Cleanup if needed
+	}
+
+	async activateView() {
+		const { workspace } = this.app;
+
+		let leaf: WorkspaceLeaf | null = null;
+		const leaves = workspace.getLeavesOfType(VIEW_TYPE_ARC_BROWSER);
+
+		if (leaves.length > 0) {
+			// If the leaf already exists, just reveal it
+			leaf = leaves[0];
+		} else {
+			// Create a new leaf in the right sidebar
+			leaf = workspace.getRightLeaf(false);
+			await leaf?.setViewState({ type: VIEW_TYPE_ARC_BROWSER, active: true });
+		}
+
+		// Reveal the leaf in the right sidebar
+		if (leaf) {
+			workspace.revealLeaf(leaf);
+		}
 	}
 
 	async loadSettings() {

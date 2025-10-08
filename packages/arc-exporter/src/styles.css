@@ -1,0 +1,137 @@
+/* Arc Browser Sidebar View */
+.arc-browser-view {
+	padding: 10px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.arc-view-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.arc-view-title {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: var(--text-normal);
+}
+
+.arc-refresh-btn {
+	background: var(--interactive-normal);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 4px;
+	padding: 4px 8px;
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.arc-refresh-btn:hover {
+	background: var(--interactive-hover);
+}
+
+.arc-main-content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	overflow-y: auto;
+}
+
+.arc-section-title {
+	margin: 0 0 10px 0;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.arc-spaces-list,
+.arc-links-list {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.arc-space-item {
+	padding: 8px 12px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.arc-space-item:hover {
+	background: var(--background-modifier-hover);
+}
+
+.arc-space-item.selected {
+	background: var(--interactive-accent);
+	color: var(--text-on-accent);
+}
+
+.arc-space-title {
+	font-weight: 500;
+	font-size: 14px;
+}
+
+.arc-link-item {
+	padding: 8px 12px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 4px;
+	margin-bottom: 8px;
+}
+
+.arc-link-info {
+	margin-bottom: 8px;
+}
+
+.arc-link-title {
+	font-weight: 500;
+	font-size: 14px;
+	color: var(--text-normal);
+	margin-bottom: 4px;
+}
+
+.arc-link-url {
+	font-size: 12px;
+	color: var(--text-muted);
+	word-break: break-all;
+}
+
+.arc-link-actions {
+	display: flex;
+	gap: 8px;
+}
+
+.arc-grab-btn {
+	background: var(--interactive-accent);
+	color: var(--text-on-accent);
+	border: none;
+	border-radius: 4px;
+	padding: 4px 8px;
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.arc-grab-btn:hover {
+	background: var(--interactive-accent-hover);
+}
+
+.arc-loading,
+.arc-error,
+.arc-empty {
+	padding: 20px;
+	text-align: center;
+	font-style: italic;
+	color: var(--text-muted);
+}
+
+.arc-error {
+	color: var(--color-red);
+}

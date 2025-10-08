@@ -20,3 +20,4 @@ data.json
 
 .turbo
 dist
+.env*
