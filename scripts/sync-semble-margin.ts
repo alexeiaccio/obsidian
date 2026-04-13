@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 // scripts/sync-semble-margin.ts
-import { config, loadState, saveState } from "./config";
+import { loadState, saveState } from "./config";
 import {
 	writeFileToVault,
 	sanitizeFileName,
@@ -15,13 +15,13 @@ interface Bookmark {
 	createdAt: string;
 }
 
-async function fetchSembleBookmarks(since?: number): Promise<Bookmark[]> {
+async function fetchSembleBookmarks(_since?: number): Promise<Bookmark[]> {
 	// TODO: Semble API integration
 	console.log("Semble sync: API integration pending.");
 	return [];
 }
 
-async function fetchMarginBookmarks(since?: number): Promise<Bookmark[]> {
+async function fetchMarginBookmarks(_since?: number): Promise<Bookmark[]> {
 	// TODO: Margin API integration
 	console.log("Margin sync: API integration pending.");
 	return [];
@@ -32,7 +32,7 @@ async function syncSembleMargin() {
 
 	const sembleBookmarks = await fetchSembleBookmarks(state.lastSembleSync);
 	for (const bookmark of sembleBookmarks) {
-		const fileName = sanitizeFileName(bookmark.title) + ".md";
+		const fileName = `${sanitizeFileName(bookmark.title)}.md`;
 		const content = stringifyFrontmatter(
 			{
 				source: "semble",
@@ -47,7 +47,7 @@ async function syncSembleMargin() {
 
 	const marginBookmarks = await fetchMarginBookmarks(state.lastMarginSync);
 	for (const bookmark of marginBookmarks) {
-		const fileName = sanitizeFileName(bookmark.title) + ".md";
+		const fileName = `${sanitizeFileName(bookmark.title)}.md`;
 		const content = stringifyFrontmatter(
 			{
 				source: "margin",

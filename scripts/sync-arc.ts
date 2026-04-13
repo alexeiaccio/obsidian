@@ -1,6 +1,7 @@
 #!/usr/bin/env bun
 // scripts/sync-arc.ts
 import { parseArcJson, flattenItems } from "../src/arc-parser";
+import type { ArcSidebarModel } from "../src/arc-model";
 import { config, loadState, saveState } from "./config";
 import {
 	writeFileToVault,
@@ -14,7 +15,7 @@ interface ArcCliConfig {
 
 async function syncArc(cliConfig: ArcCliConfig = {}) {
 	console.log("Parsing Arc sidebar...");
-	let model;
+	let model: ArcSidebarModel;
 	try {
 		model = await parseArcJson(config.arcJsonPath);
 	} catch (err) {
@@ -29,7 +30,7 @@ async function syncArc(cliConfig: ArcCliConfig = {}) {
 	}
 
 	const spacesToExport = cliConfig.spaces?.length
-		? model.spaces.filter((s) => cliConfig.spaces!.includes(s.title))
+		? model.spaces.filter((s) => cliConfig.spaces?.includes(s.title))
 		: model.spaces;
 
 	console.log(`Exporting ${spacesToExport.length} space(s)...`);
@@ -40,7 +41,7 @@ async function syncArc(cliConfig: ArcCliConfig = {}) {
 	for (const space of spacesToExport) {
 		for (const item of flattenItems(space.item)) {
 			if (!item.url) continue;
-			const fileName = sanitizeFileName(item.title || "untitled") + ".md";
+			const fileName = `${sanitizeFileName(item.title || "untitled")}.md`;
 			const content = stringifyFrontmatter(
 				{
 					source: "arc",

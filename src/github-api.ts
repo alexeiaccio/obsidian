@@ -30,7 +30,9 @@ export class GitHubApiError extends Error {
 export class GitHubClient {
 	constructor(private token: string) {}
 
-	private async makeRequest<T>(url: string): Promise<{ data: T; headers: [string, string][] }> {
+	private async makeRequest<T>(
+		url: string,
+	): Promise<{ data: T; headers: [string, string][] }> {
 		const headers: HeadersInit = {
 			Accept: "application/vnd.github.v3.star+json",
 			"X-GitHub-Api-Version": "2022-11-28",
@@ -57,7 +59,9 @@ export class GitHubClient {
 	}
 
 	async me(): Promise<{ login: string }> {
-		const result = await this.makeRequest<{ login: string }>(`${GITHUB_API_BASE}/user`);
+		const result = await this.makeRequest<{ login: string }>(
+			`${GITHUB_API_BASE}/user`,
+		);
 		return result.data;
 	}
 
@@ -83,7 +87,9 @@ export class GitHubClient {
 			`${GITHUB_API_BASE}/user/starred?per_page=1&page=1`,
 		);
 
-		const linkHeader = firstResponse.headers.find(([key]) => key === "link")?.[1];
+		const linkHeader = firstResponse.headers.find(
+			([key]) => key === "link",
+		)?.[1];
 		const match = linkHeader?.match(/page=(\d+)>; rel="last"/);
 		if (match) {
 			totalCount = Number(match[1]);
@@ -104,7 +110,10 @@ export class GitHubClient {
 				onProgress(repositories.length, totalCount || repositories.length);
 			}
 
-			if (repositories.length >= maxStars || pageData.data.length < DEFAULT_PER_PAGE) {
+			if (
+				repositories.length >= maxStars ||
+				pageData.data.length < DEFAULT_PER_PAGE
+			) {
 				break;
 			}
 

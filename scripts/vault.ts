@@ -57,7 +57,7 @@ export function parseFrontmatter(content: string): {
 				(value.startsWith("'") && value.endsWith("'"))
 			) {
 				value = value.slice(1, -1);
-			} else if (!isNaN(Number(value)) && value !== "") {
+			} else if (!Number.isNaN(Number(value)) && value !== "") {
 				frontmatter[key] = Number(value);
 				continue;
 			}

@@ -24,7 +24,7 @@ async function syncGitHubStars(incremental = true) {
 			: "Fetching all starred repos...",
 	);
 
-	const { repositories, totalCount } = await client.getStarredRepositories(
+	const { repositories } = await client.getStarredRepositories(
 		1000,
 		since || undefined,
 		(fetched, total) => {
@@ -35,7 +35,7 @@ async function syncGitHubStars(incremental = true) {
 	console.log(`\nProcessing ${repositories.length} repositories...`);
 
 	for (const repo of repositories) {
-		const fileName = sanitizeFileName(repo.full_name) + ".md";
+		const fileName = `${sanitizeFileName(repo.full_name)}.md`;
 		const content = stringifyFrontmatter(
 			{
 				source: "github",

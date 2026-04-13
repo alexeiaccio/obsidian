@@ -1,11 +1,4 @@
 #!/usr/bin/env bun
-// scripts/sync-tangled-stars.ts
-import { config, loadState, saveState } from "./config";
-import {
-	writeFileToVault,
-	sanitizeFileName,
-	stringifyFrontmatter,
-} from "./vault";
 
 async function syncTangledStars() {
 	// TODO: Tangled API integration pending

@@ -1,4 +1,4 @@
-import { describe, expect, test, beforeEach, afterEach } from "vitest";
+import { expect, test, beforeEach, afterEach } from "vitest";
 import { writeFile, mkdir, rm } from "node:fs/promises";
 import { resolve } from "node:path";
 import { parseArcJson, flattenItems } from "../src/arc-parser";

@@ -21,10 +21,9 @@ export async function parseArcJson(jsonPath: string): Promise<ArcSidebarModel> {
 
 	for (const space of wrapper.sidebar.containers[1].spaces) {
 		const spaceJson = space as ArcJSONSpace;
-		const pinnedId =
-			(spaceJson.containerIDs || [])[
-				(spaceJson.containerIDs || []).indexOf("pinned") + 1
-			];
+		const pinnedId = (spaceJson.containerIDs || [])[
+			(spaceJson.containerIDs || []).indexOf("pinned") + 1
+		];
 		const spaceItemJson = wrapper.sidebar.containers[1].items.find(
 			(value) => (value as ArcJSONItem).id === pinnedId,
 		) as ArcJSONItem;
