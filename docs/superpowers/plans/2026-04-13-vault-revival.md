@@ -48,7 +48,7 @@
 - Delete: `packages/arc-exporter/` (entire directory)
 - Delete: `packages/github-stars-exporter/` (entire directory)
 - Modify: `package.json`
-- Modify: `CLAUDE.md`
+- Modify: `AGENTS.md`
 - Modify: `.gitignore`
 
 - [ ] **Step 1: Remove .env from git tracking**
@@ -1219,6 +1219,7 @@ Convert daily note link extracts into enriched Link pages using LLM.
    d. Create `Links/<Title>.md` with enriched frontmatter
    e. Add `[[wikilinks]]` to relevant Tags/ pages
 4. Present summary of changes for user review
+5. **After user confirms:** delete processed daily note(s) from `Daily/`
 
 ## Frontmatter Format
 ```yaml
@@ -1290,9 +1291,9 @@ git add -A
 git commit -m "chore: final integration — tests pass, lint clean"
 ```
 
-### Task 13: Update CLAUDE.md with final project structure
+### Task 13: Update AGENTS.md with final project structure
 
-- [ ] **Step 1: Rewrite CLAUDE.md for new structure**
+- [ ] **Step 1: Rewrite AGENTS.md for new structure**
 
 Document:
 - New directory layout (scripts/, src/, tests/, skills/)
@@ -1304,8 +1305,8 @@ Document:
 - [ ] **Step 2: Commit**
 
 ```bash
-git add CLAUDE.md
-git commit -m "docs: update CLAUDE.md for new CLI-based structure"
+git add AGENTS.md
+git commit -m "docs: update AGENTS.md for new CLI-based structure"
 ```
 
 ---
