@@ -1,79 +1,83 @@
-# Obsidian vault scripts
+# Obsidian Vault Sync Tools
 
-## Project overview
+## Project Overview
 
-- **Runtime:** Bun (use `bun run <script>` to execute).
-- **Language:** TypeScript (`"strict": true`).
-- **Purpose:** CLI scripts that sync external data (GitHub stars, Arc browser tabs, Tangled, Semble) into the Obsidian vault.
+CLI tools for syncing bookmarks from various sources (Arc, GitHub, Tangled, Semble/Margin) into an Obsidian vault. Includes LLM-powered enrichment for tags, cross-links, and annotations.
 
-## Directory layout
+- **Runtime:** Bun
+- **Language:** TypeScript (`"strict": true`)
+- **Config:** `scripts/config.ts` (vault path, tokens, settings)
+
+## Directory Structure
 
 ```
-scripts/           # Executable entry points (one per sync source)
-src/               # Shared modules, types, utilities
-tests/             # Vitest test files
-skills/            # Agent skill definitions
-  process-daily/   # Daily note processing skill
+scripts/
+  config.ts              — centralized config (vault path, tokens, settings)
+  vault.ts               — vault read/write utils, frontmatter, file creation
+  sync-arc.ts            — Arc sidebar sync
+  sync-github-stars.ts   — GitHub stars sync (incremental)
+  sync-tangled-stars.ts  — Tangled stars sync (stub)
+  sync-semble-margin.ts  — Semble/Margin bookmark sync (stub)
+src/
+  arc-model.ts           — Arc JSON TypeScript interfaces
+  arc-parser.ts          — Arc sidebar JSON parser
+  github-api.ts          — GitHub API client
+tests/
+  vault.test.ts          — vault utility tests
+  arc-parser.test.ts     — Arc parser tests
+  github-api.test.ts     — GitHub API tests
+skills/
+  enrich-links/
+    SKILL.md             — OpenCode skill for LLM enrichment
 ```
 
-## Tooling
+## Running Scripts
 
-| Tool | Role | Commands |
-|------|------|----------|
-| **Bun** | Runtime + package manager | `bun install`, `bun run <script>` |
-| **Biome** | Formatter + linter | `bunx biome format --write`, `bunx biome lint --write --unsafe` |
-| **Vitest** | Test runner | `bun test` or `vitest` |
-| **TypeScript** | Type checking | `bun run check-types` |
+```bash
+bun run scripts/sync-arc.ts
+GITHUB_TOKEN=xxx bun run scripts/sync-github-stars.ts
+bun run scripts/sync-tangled-stars.ts
+bun run scripts/sync-semble-margin.ts
+```
 
-## Scripts
+## Enrichment Skill
 
-| Script | Description |
-|--------|-------------|
-| `sync-arc` | Sync Arc browser tabs |
-| `sync-github` | Sync GitHub starred repos |
-| `sync-tangled` | Sync Tangled data |
-| `sync-semble` | Sync Semble margin notes |
+Invoke via OpenCode skill tool:
+```
+skill("enrich-links")
+```
+Enrichment adds tags, cross-links, and annotations to synced files via LLM.
 
-## Code style
+## Common Commands
 
-- **Indentation:** Tabs (configured in `biome.json`).
-- **Quotes:** Double quotes.
-- **Formatting:** Enforced by Biome — run `bun run format` before committing.
-- **Linting:** Enforced by Biome — run `bun run lint` before committing.
-- Prefer `async/await` over promise chains.
-- Handle errors gracefully; don't swallow exceptions silently.
-- Keep each script focused on a single sync source.
-- Shared logic goes in `src/`, not duplicated across scripts.
+```bash
+bun run test           # Run tests
+bun run lint           # Lint and auto-fix
+bun run format         # Format code
+bun run check-types    # Type check (needs tsconfig)
+```
 
-## Adding a new sync script
+## Architecture
 
-1. Create `scripts/sync-<name>.ts` as the entry point.
-2. Add shared utilities/types to `src/`.
-3. Add a `"sync-<name>"` entry to `scripts` in `package.json`.
-4. Write tests in `tests/sync-<name>.test.ts`.
-5. Run `bun run check-types` and `bun run test` before committing.
+- **Sync scripts are dumb fetchers** — write files with `tags: []`
+- **Enrichment** (tags, cross-links, annotations) happens via LLM skill
+- **Vault path** configured in `scripts/config.ts`
+- **Sync state** tracked in `.sync-state.json` in vault root
+
+## Code Style
+
+- Tabs for indentation
+- Double quotes for strings
+- Import organization enabled (Biome)
+- Run `bun run format` and `bun run lint` before committing
 
 ## Testing
 
-- Tests live in `tests/` and use Vitest.
-- Run all tests: `bun run test` or `vitest`.
-- Run a single file: `vitest tests/<file>.test.ts`.
+- Vitest. Tests in `tests/` directory.
+- Run with `bun run test`.
 - Mock external API calls; never hit real services in tests.
 
 ## Security
 
-- Never commit secrets (API keys, tokens). Use `.env` files (gitignored).
-- Read secrets from environment variables at runtime.
-- Don't log sensitive values.
-
-## Agent do/don't
-
-**Do**
-- Run `bun run check-types` and `bun run test` before claiming work is done.
-- Follow the existing code style (tabs, double quotes).
-- Keep scripts small and focused.
-
-**Don't**
-- Introduce dependencies without checking if Bun's built-ins suffice.
-- Skip error handling in async code.
-- Commit without running `bun run format`.
+- Never commit secrets. Use `.env` files (gitignored).
+- Read tokens from environment variables at runtime.
