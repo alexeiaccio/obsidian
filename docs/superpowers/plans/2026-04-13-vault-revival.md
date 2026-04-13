@@ -30,8 +30,8 @@
 │   ├── arc-parser.test.ts        # Create
 │   └── github-api.test.ts        # Create
 ├── skills/
-│   └── process-daily/
-│       └── SKILL.md              # Create — OpenCode skill for daily note processing
+│   └── enrich-links/
+│       └── SKILL.md              # Create — OpenCode skill for LLM enrichment
 ├── packages/                     # Delete — old plugin packages
 ├── docs/superpowers/specs/
 │   └── 2026-04-13-vault-revival-design.md  # Already exists
@@ -123,18 +123,31 @@ git commit -m "refactor: replace obsidian plugins with CLI scripts
 - Move: `~/.../Notes/Arc Exports/*` → `~/.../Notes/Links/`
 - Delete: `~/.../Notes/Tags/Untitled.md`
 
+**Note:** Arc exports and old Links/ files are written with `tags: []`. The enrichment skill (Task 11) processes them later — fetching URLs, adding tags, cross-links, and annotations via LLM.
+
 - [ ] **Step 1: Delete Weekly notes**
 
 ```bash
 rm -rf ~/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Notes/Weekly
 ```
 
-- [ ] **Step 2: Merge Arc Exports into Links**
+- [ ] **Step 2: Move Arc Exports into Links/ with raw frontmatter**
 
-Move each file from `Arc Exports/` to `Links/`, adding `source: arc` to frontmatter. For each file:
+Move each file from `Arc Exports/` to `Links/`, adding minimal frontmatter (source, url, tags: [], created). No enrichment yet — that happens via the skill. For each file:
 1. Read the file
-2. Add `source: arc` to YAML frontmatter (or create frontmatter if missing)
-3. Write to `Links/` with same filename
+2. Extract URLs from the `### \`title\`` + `- **Link**: url` format
+3. For each URL, create a file in `Links/` with:
+   ```yaml
+   ---
+   source: arc
+   url: <url>
+   tags: []
+   created: <today's date>
+   ---
+   # <title>
+   
+   From Arc export: <original space name>
+   ```
 4. Delete original from `Arc Exports/`
 
 - [ ] **Step 3: Delete Tags/Untitled.md**
@@ -152,8 +165,10 @@ Check `~/.obsidian/plugins/` for unused plugin directories and remove them.
 ```bash
 cd ~/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Notes
 git add -A
-git commit -m "chore: vault cleanup — delete Weekly, merge Arc Exports into Links, remove Untitled"
+git commit -m "chore: vault cleanup — delete Weekly, move Arc Exports to Links, remove Untitled"
 ```
+
+After this step, all files in `Links/` (both old 385 files and newly moved Arc exports) have `tags: []` and await LLM enrichment.
 
 ---
 
@@ -917,14 +932,16 @@ async function syncArc(cliConfig: ArcCliConfig = { archiveAfterExport: false }) 
 		if (items.length === 0) continue;
 
 		// Write each item as a separate file in Links/
-		for (const item of items) {
+		// Tags, cross-links, annotations added later by LLM processing skill
+		for (const item of flattenItems(space.item)) {
+			if (!item.url) continue;
 			const fileName = sanitizeFileName(item.title || "untitled") + ".md";
 			const content = stringifyFrontmatter(
 				{
 					source: "arc",
-					url: item.url || "",
+					url: item.url,
 					arc_space: space.title,
-					tags: inferTagsFromUrl(item.url || ""),
+					tags: [],
 					created: new Date().toISOString().split("T")[0],
 				},
 				`# ${item.title}\n\nSaved from Arc browser space: **${space.title}**\n\n[${item.url}](${item.url})`,
@@ -941,23 +958,6 @@ async function syncArc(cliConfig: ArcCliConfig = { archiveAfterExport: false }) 
 	saveState(state);
 
 	console.log(`Exported ${exportedCount} items from Arc.`);
-}
-
-function inferTagsFromUrl(url: string): string[] {
-	const tags: string[] = [];
-	try {
-		const hostname = new URL(url).hostname;
-		if (hostname.includes("github")) tags.push("GitHub");
-		if (hostname.includes("twitter") || hostname.includes("x.com")) tags.push("Twitter");
-		if (hostname.includes("youtube")) tags.push("YouTube");
-		if (hostname.includes("stackoverflow")) tags.push("StackOverflow");
-		if (hostname.includes("dev.to")) tags.push("DevTo");
-		if (hostname.includes("medium")) tags.push("Medium");
-		if (hostname.includes("reddit")) tags.push("Reddit");
-	} catch {
-		// invalid URL
-	}
-	return tags;
 }
 
 // Run if called directly
@@ -1023,16 +1023,15 @@ async function syncGitHubStars(incremental = true) {
 
 	for (const repo of repositories) {
 		const fileName = sanitizeFileName(repo.full_name) + ".md";
+		// Tags from GitHub topics only; LLM enriches with cross-links and annotations later
 		const content = stringifyFrontmatter(
 			{
 				source: "github",
 				url: repo.html_url,
-				tags: repo.topics.length ? repo.topics : [repo.language || "Unknown"],
+				tags: repo.topics,
 				created: repo.starred_at.split("T")[0],
 			},
 			`# ${repo.full_name}\n\n${repo.description || "No description"}\n\n` +
-				`**Stars:** ${repo.stargazers_count} | **Language:** ${repo.language || "Unknown"} | **Forks:** ${repo.forks_count}\n\n` +
-				(repo.homepage ? `**Homepage:** [${repo.homepage}](${repo.homepage})\n\n` : "") +
 				`[View on GitHub](${repo.html_url})`,
 		);
 
@@ -1192,64 +1191,71 @@ git commit -m "feat: add Semble/Margin bookmark sync stub (API details pending)"
 
 ## Chunk 6: Daily Processing Skill
 
-### Task 11: Create OpenCode skill for daily note processing
+### Task 11: Create OpenCode skill for vault enrichment
 
 **Files:**
-- Create: `~/github/obsidian/skills/process-daily/SKILL.md`
+- Create: `~/github/obsidian/skills/enrich-links/SKILL.md`
 
 - [ ] **Step 1: Write skill definition**
 
 ```markdown
-# Skill: Process Daily Notes
+# Skill: Enrich Links
 
-Convert daily note link extracts into enriched Link pages using LLM.
+LLM-powered enrichment of vault link files. Handles tagging, cross-linking, summaries, and annotations for ALL sources (Arc, GitHub, Tangled, Semble/Margin, daily notes).
 
 ## When to Use
-- User says "process daily notes" or "process today's notes"
-- User specifies a date range for processing
+- User says "enrich links", "process daily notes", or "sync and enrich"
+- After running any sync script, to add tags, cross-links, and annotations
+- User wants to batch-process existing Links/ files with empty tags
 
 ## Workflow
 
-1. Read the daily note file(s) from `Daily/YYYY-MM-DD.md`
+### Mode 1: Process daily notes → Links/
+1. Read daily note file(s) from `Daily/YYYY-MM-DD.md`
 2. Extract link entries (lines matching `- [Title](URL) – description`)
 3. For each link:
-   a. Fetch URL content (use WebFetch or curl)
+   a. Fetch URL content (WebFetch)
    b. Summarize the content
-   c. Extract/infers relevant tags
+   c. Infer tags matching existing Tags/ pages
    d. Create `Links/<Title>.md` with enriched frontmatter
    e. Add `[[wikilinks]]` to relevant Tags/ pages
-4. Present summary of changes for user review
+4. Present summary for review
 5. **After user confirms:** delete processed daily note(s) from `Daily/`
+
+### Mode 2: Enrich existing Links/ files
+1. Find files in `Links/` with empty or missing `tags` field
+   - This includes old 385 legacy bookmark files (frontmatter-only, no summary)
+   - This includes Arc exports moved during vault cleanup
+2. For each file:
+   a. Read existing content and URL from frontmatter
+   b. Fetch URL content if not already summarized
+   c. Infer tags, add `[[wikilinks]]` to Tags/ pages
+   d. Add short annotation/summary
+   e. Update the file in place
+
+## Enrichment Rules
+- Tags must match existing `Tags/*.md` filenames when possible
+- Add `[[wikilinks]]` to tag pages inline in the body
+- Short annotation = 1-2 sentence summary of what the link is about
+- Preserve existing frontmatter; only add/update `tags` and body
+- Never invent URLs or links that don't exist in the vault
 
 ## Frontmatter Format
 ```yaml
 ---
-source: daily
-url: <original URL>
+source: arc | github | tangled | semble | margin | daily
+url: <URL>
 tags: [tag1, tag2]
-created: <date from daily note>
+created: YYYY-MM-DD
 ---
 ```
-
-## Output
-Each processed link becomes a file in `Links/` with:
-- Frontmatter (source, url, tags, created)
-- Title as H1
-- LLM-generated summary
-- Key points extracted from content
-- Original description preserved as blockquote
-
-## Notes
-- Skip entries that already exist in Links/ (check by URL)
-- If URL is unreachable, create entry with original description only
-- Respect existing tags in Tags/ folder when inferring tags
 ```
 
 - [ ] **Step 2: Commit**
 
 ```bash
-git add skills/process-daily/SKILL.md
-git commit -m "feat: add OpenCode skill for daily note processing"
+git add skills/enrich-links/SKILL.md
+git commit -m "feat: add vault enrichment skill (LLM-powered tags, cross-links, annotations)"
 ```
 
 ---
