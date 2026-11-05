@@ -17,6 +17,11 @@ data.json
 # not public; a committed one would pin paths this machine cannot see.
 pnpm-lock.yaml
 
+# A local shim for a machine that cannot reach that registry yet: tarballs packed
+# out of the monorepo, wired up by pnpm-workspace.yaml.
+pnpm-workspace.yaml
+.eoa-packs/
+
 # Intellij
 *.iml
 .idea
