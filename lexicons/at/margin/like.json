@@ -1,0 +1,46 @@
+{
+  "id": "at.margin.like",
+  "defs": {
+    "main": {
+      "key": "tid",
+      "type": "record",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "subject"
+        ],
+        "properties": {
+          "subject": {
+            "ref": "#subjectRef",
+            "type": "ref",
+            "description": "Reference to the annotation or reply being liked"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      },
+      "description": "A like on an annotation or reply"
+    },
+    "subjectRef": {
+      "type": "object",
+      "required": [
+        "cid",
+        "uri"
+      ],
+      "properties": {
+        "cid": {
+          "type": "string",
+          "format": "cid"
+        },
+        "uri": {
+          "type": "string",
+          "format": "at-uri"
+        }
+      }
+    }
+  },
+  "lexicon": 1
+}

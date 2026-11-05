@@ -1,0 +1,34 @@
+/**
+ * @since 1.0.0
+ */
+import { Effect } from "effect";
+import type { Scope } from "effect";
+
+/**
+ * @since 1.0.0
+ */
+export const prototype = <A, K extends keyof A>(
+	name: string,
+	self: A,
+	method: K,
+	patch: (original: A[K]) => A[K],
+): Effect.Effect<void, never, Scope.Scope> =>
+	Effect.suspend(() => {
+		const symbol = Symbol.for(`effect-obsidian/Patch/${name}`);
+		const proto = Object.getPrototypeOf(self);
+		if (symbol in proto && proto[symbol] === true) {
+			return Effect.void;
+		}
+		const original = proto[method];
+		return Effect.acquireRelease(
+			Effect.sync(() => {
+				proto[method] = patch(original);
+				proto[symbol] = true;
+			}),
+			() =>
+				Effect.sync(() => {
+					proto[method] = original;
+					proto[symbol] = false;
+				}),
+		);
+	});

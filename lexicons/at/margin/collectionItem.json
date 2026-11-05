@@ -1,0 +1,41 @@
+{
+  "id": "at.margin.collectionItem",
+  "defs": {
+    "main": {
+      "key": "tid",
+      "type": "record",
+      "record": {
+        "type": "object",
+        "required": [
+          "annotation",
+          "collection",
+          "createdAt"
+        ],
+        "properties": {
+          "position": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Sort order within the collection"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "annotation": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the annotation, highlight, or bookmark"
+          },
+          "collection": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the collection"
+          }
+        }
+      },
+      "description": "Associates an annotation with a collection"
+    }
+  },
+  "lexicon": 1,
+  "description": "An item in a collection (links annotation to collection)"
+}

@@ -1,0 +1,98 @@
+{
+  "id": "at.margin.preferences",
+  "defs": {
+    "main": {
+      "key": "literal:self",
+      "type": "record",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "labelPreferences": {
+            "type": "array",
+            "items": {
+              "ref": "#labelPreference",
+              "type": "ref"
+            },
+            "maxLength": 500,
+            "description": "Per-label visibility preferences for subscribed labelers."
+          },
+          "subscribedLabelers": {
+            "type": "array",
+            "items": {
+              "ref": "#labelerSubscription",
+              "type": "ref"
+            },
+            "maxLength": 50,
+            "description": "List of labeler services the user subscribes to for content moderation."
+          },
+          "enableCommunityBookmarks": {
+            "type": "boolean",
+            "default": false,
+            "description": "If true, dual-write bookmarks to the   standard for ATProto interop."
+          },
+          "disableExternalLinkWarning": {
+            "type": "boolean",
+            "description": "If true, do not show the confirmation modal when opening external links."
+          },
+          "externalLinkSkippedHostnames": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "maxLength": 100,
+            "description": "List of hostnames to skip the external link warning modal for."
+          }
+        }
+      },
+      "description": "User preferences for the Margin application."
+    },
+    "labelPreference": {
+      "type": "object",
+      "required": [
+        "label",
+        "labelerDid",
+        "visibility"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "The label identifier (e.g. sexual, violence, spam)."
+        },
+        "labelerDid": {
+          "type": "string",
+          "description": "DID of the labeler service."
+        },
+        "visibility": {
+          "type": "string",
+          "description": "How to handle content with this label: hide, warn, or ignore.",
+          "knownValues": [
+            "hide",
+            "ignore",
+            "warn"
+          ]
+        }
+      }
+    },
+    "labelerSubscription": {
+      "type": "object",
+      "required": [
+        "did"
+      ],
+      "properties": {
+        "did": {
+          "type": "string",
+          "description": "DID of the labeler service."
+        }
+      }
+    }
+  },
+  "lexicon": 1
+}

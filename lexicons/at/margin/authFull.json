@@ -1,0 +1,35 @@
+{
+  "id": "at.margin.authFull",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Margin",
+      "detail": "Full access to Margin features including notes, replies, likes, and collections.",
+      "permissions": [
+        {
+          "type": "permission",
+          "action": [
+            "create",
+            "update",
+            "delete"
+          ],
+          "resource": "repo",
+          "collection": [
+            "at.margin.note",
+            "at.margin.reply",
+            "at.margin.like",
+            "at.margin.collection",
+            "at.margin.collectionItem",
+            "at.margin.profile",
+            "at.margin.readingRoom",
+            "at.margin.apikey",
+            "at.margin.preferences"
+          ]
+        }
+      ],
+      "title:langs": {},
+      "detail:langs": {}
+    }
+  },
+  "lexicon": 1
+}

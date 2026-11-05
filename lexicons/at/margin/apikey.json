@@ -1,0 +1,34 @@
+{
+  "id": "at.margin.apikey",
+  "defs": {
+    "main": {
+      "key": "tid",
+      "type": "record",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "keyHash",
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Human-readable name for the API key."
+          },
+          "keyHash": {
+            "type": "string",
+            "description": "SHA256 hash of the API key."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      },
+      "description": "An API key hash for the Margin application."
+    }
+  },
+  "lexicon": 1
+}

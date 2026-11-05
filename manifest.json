@@ -1,0 +1,10 @@
+{
+	"id": "obsidian-clipper",
+	"name": "Clipper",
+	"version": "0.2.0",
+	"minAppVersion": "0.15.0",
+	"description": "Clip links from atproto records, GitHub/Tangled stars, and Arc tabs into your vault.",
+	"author": "alexeiaccio",
+	"authorUrl": "https://github.com/alexeiaccio",
+	"isDesktopOnly": true
+}

@@ -1,94 +1,130 @@
-# Obsidian Sample Plugin
+# Clipper
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+Obsidian plugin for AT Protocol: browse and manage bookmarks, publish notes to
+[standard.site](https://standard.site/), and read the publications you follow.
 
-This project uses TypeScript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in TypeScript Definition format, which contains TSDoc comments describing what it does.
+Surf the atmosphere from the coziness of your vault.
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
+![](./bookmarks.png)
+![](./standard.site.png)
 
-## First time developing plugins?
+A fork of [treethought/obsidian-atmosphere](https://github.com/treethought/obsidian-atmosphere),
+maintained at [alexeiaccio/obsidian](https://github.com/alexeiaccio/obsidian).
 
-Quick starting guide for new plugin devs:
+## Features
 
-- Check if [someone already developed a plugin for what you want](https://obsidian.md/plugins)! There might be an existing plugin similar enough that you can partner up with.
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `main.ts` to `main.js`.
-- Make changes to `main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of your plugin.
-- Enable plugin in settings window.
-- For updates to the Obsidian API run `npm update` in the command line under your repo folder.
+### Bookmarks
 
-## Releasing new releases
+Read and manage bookmarks from AT Protocol platforms:
 
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
-- Publish the release.
+- [Semble](https://semble.so) (`network.cosmik.*`) — collections, cards, notes
+- [Margin](https://margin.at) (`at.margin.*`) — bookmarks with collections and tags
+- [Kipclip](https://kipclip.com) and community bookmarks (`community.lexicon.bookmarks.*`)
+- GitHub stars and Arc tabs, read into the same view
 
-> You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
-> The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
+Filter by collection or tag, add cards to collections, search across sources.
 
-## Adding your plugin to the community plugin list
+### Publishing
 
-- Check the [plugin guidelines](https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines).
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
+Publish Obsidian notes to a standard.site publication ([leaflet.pub](https://leaflet.pub),
+[pckt.blog](https://pckt.blog)). The note is converted to the format the
+publication expects, published, and its properties get the publication URL and
+AT-URIs.
 
-## How to use
+### Reading
 
-- Clone this repo.
-- Make sure your NodeJS is at least v16 (`node --version`).
-- `npm i` or `yarn` to install dependencies.
-- `npm run dev` to start compilation in watch mode.
+The feed lists your subscribed publications; open one to browse its documents and
+clip any of them into the vault.
 
-## Manually installing the plugin
+### Lenses
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
+Canvas views built from the same data:
 
-## Improve code quality with eslint (optional)
-- [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code. 
-- To use eslint with this project, make sure to install eslint from terminal:
-  - `npm install -g eslint`
-- To use eslint to analyze this project use this command:
-  - `eslint main.ts`
-  - eslint will then create a report with suggestions for code improvement by file and line number.
-- If your source code is in a folder, such as `src`, you can use eslint with this command to analyze all files in that folder:
-  - `eslint ./src/`
+- **Group bookmarks by meaning** — asks TypeSafe's Jev to file each saved link into
+  one of your own topics (collections, tags, repeated sites), then lays the groups
+  out on the active canvas.
+- **Draw connections on canvas** — connection endpoints from your records.
+- **Write link queue for the map** — a queue for the tldraw map lens.
 
-## Funding URL
+## Install
 
-You can include funding URLs where people who use your plugin can financially support it.
+There is no release archive to fetch — build it and copy the artifacts into the
+vault:
 
-The simple way is to set the `fundingUrl` field to your link in your `manifest.json` file:
-
-```json
-{
-    "fundingUrl": "https://buymeacoffee.com"
-}
+```bash
+git clone https://github.com/alexeiaccio/obsidian.git
+cd obsidian
+pnpm install
+pnpm build
+cp {main.js,manifest.json,styles.css} <vault>/.obsidian/plugins/obsidian-clipper/
 ```
 
-If you have multiple URLs, you can also do:
+Then enable **Clipper** in **Settings → Community plugins**.
 
-```json
-{
-    "fundingUrl": {
-        "Buy Me a Coffee": "https://buymeacoffee.com",
-        "GitHub Sponsor": "https://github.com/sponsors",
-        "Patreon": "https://www.patreon.com/"
-    }
-}
-```
+The plugin imports `@eoa/*` (the Effect-native AT Protocol core, identity,
+OAuth and XRPC). Those are not on npmjs, so `pnpm install` needs the registry that
+serves the `@eoa` scope — point `@eoa:registry` in `~/.npmrc` at it.
 
-## API Documentation
+## Sign in
 
-See https://github.com/obsidianmd/obsidian-api
+Two mechanisms, both in **Settings → Clipper**:
+
+- **Browser (OAuth).** Enter your handle, approve in the browser, and come back.
+  The plugin runs as a native loopback client — nothing is published and no
+  metadata lives on someone else's domain. AT Protocol treats loopback clients as
+  untrusted, so expect a re-login about once a day.
+- **App password.** Handle (or email) plus an app password from
+  [bsky.app → Settings → App passwords](https://bsky.app/settings/app-passwords).
+  The credential is stored in this vault's plugin data and can be revoked there.
+  No expiry, no browser round trip.
+
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| **Open bookmarks** | The bookmarks view: Semble, margin.at, bookmarks, GitHub, Arc |
+| **Open feed** | Subscribed standard.site publications |
+| **Publish note** | Publish the active note to a standard.site publication |
+| **Group bookmarks by meaning on canvas** | File saved links into topics on the active canvas |
+| **Draw connections on canvas** | Draw the connection graph on the active canvas |
+| **Write link queue for the map** | Write the queue the tldraw map lens reads |
+| **Read source of this note** | Open the note's `url` frontmatter in the reader |
+
+Commands with a canvas in the name need a `.canvas` file as the active view.
+
+## Settings
+
+| Setting | Description |
+|---------|-------------|
+| Handle / app password | Sign-in; see above |
+| Clip directory | Where clipped documents go (default `clips`) |
+| Note template, templates by source | Markdown template for clipped notes |
+| Relations: direction, types, resolved only, limit, link clipped notes | How clipped notes are linked to each other |
+| Bookmarks: sources | Which sources the bookmarks view reads |
+| GitHub login / token / max items | GitHub stars as a source |
+| Arc max items | Arc tabs as a source |
+| Map: tldraw file | The file the map lens targets |
+| Meaning: topics | Optional comma-separated topics; collections, tags and repeated sites are used when empty |
+| Meaning: TypeSafe API key | Used by **Group bookmarks by meaning** (Jev), stored in this vault's plugin data |
+
+## Network use
+
+Repository records are read through `bsky.social`, which serves the same public
+data and is reachable from more networks than a bare `*.bsky.network` PDS host.
+Writes — publishing, tagging, collections — go to the PDS that hosts your account,
+since they need your signature. Other sources (margin.at, standard.site
+publications, GitHub) are read where they live.
+
+Article pages for the **Source reader** are fetched directly. When that fails, or
+takes longer than eight seconds — a proxy, a host that ignores non-browser
+clients, a page that only renders in a browser — the reader falls back to
+[defuddle.md](https://defuddle.md), which fetches the page and returns its
+Markdown. That is the one request that leaves your repository and the page itself
+for a third party, and it runs only when the direct read cannot. The other third
+party that sees your content is TypeSafe, and only when you run **Group bookmarks
+by meaning** with a key set: it receives the saved links' titles, descriptions,
+URLs and tags plus your topic candidates. No telemetry.
+
+## License
+
+MIT — see [LICENSE](./LICENSE). Original work © 2025 treethought.

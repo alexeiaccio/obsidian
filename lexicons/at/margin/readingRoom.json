@@ -1,0 +1,92 @@
+{
+  "id": "at.margin.readingRoom",
+  "defs": {
+    "main": {
+      "key": "literal:self",
+      "type": "record",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt"
+        ],
+        "properties": {
+          "theme": {
+            "ref": "#theme",
+            "type": "ref",
+            "description": "Visual theme for the room."
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Title shown at the top of the reading room.",
+            "maxGraphemes": 100
+          },
+          "subtitle": {
+            "type": "string",
+            "maxLength": 300,
+            "description": "Tagline shown beneath the title.",
+            "maxGraphemes": 150
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "Longer description of what the room collects.",
+            "maxGraphemes": 600
+          },
+          "featuredUris": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "at-uri"
+            },
+            "maxLength": 12,
+            "description": "AT URIs of annotations pinned to the top of the room."
+          },
+          "showExternalBookmarks": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether bookmarks from external services (Semble, Lichen, etc.) are shown in the room."
+          }
+        }
+      },
+      "description": "Presentational configuration for a user's public reading room — a curated, themed view over their annotations. One per user."
+    },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "layout": {
+          "type": "string",
+          "default": "masonry",
+          "description": "Arrangement of notes on the room page.",
+          "knownValues": [
+            "grid",
+            "list",
+            "masonry"
+          ]
+        },
+        "fontFamily": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "CSS font family identifier for body text."
+        },
+        "accentColor": {
+          "type": "string",
+          "maxLength": 20,
+          "description": "Accent color as a hex string (e.g. #3b82f6)."
+        },
+        "backgroundColor": {
+          "type": "string",
+          "maxLength": 20,
+          "description": "Page background color as a hex string (e.g. #fcfcfc)."
+        }
+      },
+      "description": "Visual theme for a reading room. Omitted fields fall back to app defaults."
+    }
+  },
+  "lexicon": 1,
+  "description": "A user's public reading room configuration"
+}

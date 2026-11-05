@@ -1,24 +1,44 @@
 {
-	"name": "obsidian",
-	"version": "0.0.1",
+	"name": "obsidian-clipper",
+	"version": "0.2.0",
+	"description": "Clip links from atproto records, GitHub/Tangled stars, and Arc tabs into your vault.",
+	"main": "main.js",
+	"private": true,
 	"scripts": {
-		"sync-arc": "bun run scripts/sync-arc.ts",
-		"sync-github": "bun run scripts/sync-github-stars.ts",
-		"sync-tangled": "bun run scripts/sync-tangled-stars.ts",
-		"sync-semble": "bun run scripts/sync-semble-margin.ts",
-		"build": "echo 'no build needed'",
-		"check-types": "tsc --noEmit --skipLibCheck",
-		"format": "bunx biome format --write",
-		"lint": "bunx biome lint --write --unsafe",
-		"test": "vitest"
+		"dev": "vp pack --watch",
+		"build": "tsc -noEmit -skipLibCheck && vp pack",
+		"test": "vp test --run"
 	},
-	"keywords": [],
-	"author": "alexei accio <alexei.accio@gmail.com>",
-	"license": "ISC",
-	"description": "CLI scripts for syncing obsidian vault data",
+	"license": "MIT",
+	"author": "alexeiaccio <https://github.com/alexeiaccio>",
 	"devDependencies": {
-		"@biomejs/biome": "2.2.5",
-		"vitest": "^3.2.4"
+		"@atcute/lex-cli": "^3.3.0",
+		"@types/mdast": "^4.0.4",
+		"@types/node": "^16.11.6",
+		"tslib": "2.4.0",
+		"typescript": "^5.8.3",
+		"vite-plus": "^1.4.0",
+		"vitest": "^5.0.5"
 	},
-	"packageManager": "bun@1.2.0"
+	"dependencies": {
+		"@atcute/atproto": "^3.1.10",
+		"@atcute/bluesky": "^3.2.15",
+		"@atcute/leaflet": "^1.0.17",
+		"@atcute/lexicons": "^2.1.1",
+		"@atcute/pckt": "^0.1.5",
+		"@effect/ai-typesafe": "4.1.1",
+		"@eoa/core": "^0.1.0",
+		"@eoa/crypto": "^0.1.0",
+		"@eoa/identity": "^0.1.0",
+		"@eoa/oauth": "^0.1.0",
+		"@eoa/xrpc": "^0.1.0",
+		"bluesky-post-embed": "^1.0.6",
+		"bluesky-profile-card-embed": "^1.0.1",
+		"defuddle": "^0.19.4",
+		"effect": "4.1.1",
+		"obsidian": "1.11.4",
+		"remark-parse": "^11.0.0",
+		"remark-stringify": "^11.0.0",
+		"unified": "^11.0.5"
+	}
 }
