@@ -62,10 +62,10 @@ cp {main.js,manifest.json,styles.css} <vault>/.obsidian/plugins/obsidian-clipper
 Then enable **Clipper** in **Settings → Community plugins**.
 
 The plugin imports `@eoa/*` (the Effect-native AT Protocol core, identity, OAuth
-and XRPC). Those are not on npm: each is a release record on the org PDS, and
-`pnpm-workspace.yaml` redirects the five names to the `getBlob` URLs those records
-name. `pnpm install` therefore needs no registry of its own; the header of that
-file says how to regenerate the block after a new release.
+and XRPC). Those are not on npmjs: `.npmrc` points the `@eoa` scope at
+`https://npm.accio.blue`, an npm-compatible index over the releases published on
+the org PDS. Nothing else to configure — `pnpm install` treats them like any other
+dependency, and `effect` comes out at one version (`4.1.1`).
 
 ## Sign in
 

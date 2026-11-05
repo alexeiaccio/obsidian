@@ -9,7 +9,7 @@ and canvas lenses.
 ## Build
 
 ```bash
-pnpm install       # @eoa/* resolves from PDS blobs via pnpm-workspace.yaml
+pnpm install       # @eoa/* comes from npm.accio.blue, scoped in .npmrc
 pnpm build         # tsc -noEmit, then vp pack → ./main.js
 pnpm dev           # vp pack --watch
 pnpm test          # vp test --run

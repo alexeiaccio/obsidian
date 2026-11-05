@@ -4,14 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@eoa/core': https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreihm2pefagq4hcykniokvgrvqbxve72amhb2hxjk7rfsh3puobfzqi
-  '@eoa/lexicon': https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreib6jnlx7r4u3iscexi4rayrgp4iujzs7jo5wf7gvfijv5wwyyuscm
-  '@eoa/crypto': https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreige3bqmqabw6sy3prwazftizdrsgyyneowe7limhntibu7j6egchm
-  '@eoa/identity': https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreie75fmaf5gzjywa55anzke5y2yllqecrbotzbrwlvbjz774i6hfri
-  '@eoa/oauth': https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreieh72ycxtxpdca42dbid2fz5633hk4xtyz7yuneuwztiz42yz6kne
-  '@eoa/xrpc': https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreiefnwbuvns3ffeinjnthjhmmsolhntewrkbmmfczpwftm6sliopga
-
 importers:
 
   .:
@@ -35,20 +27,20 @@ importers:
         specifier: 4.1.1
         version: 4.1.1(effect@4.1.1)
       '@eoa/core':
-        specifier: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreihm2pefagq4hcykniokvgrvqbxve72amhb2hxjk7rfsh3puobfzqi
-        version: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreihm2pefagq4hcykniokvgrvqbxve72amhb2hxjk7rfsh3puobfzqi(effect@4.1.1)
+        specifier: ^0.1.0
+        version: 0.1.0(effect@4.1.1)
       '@eoa/crypto':
-        specifier: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreige3bqmqabw6sy3prwazftizdrsgyyneowe7limhntibu7j6egchm
-        version: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreige3bqmqabw6sy3prwazftizdrsgyyneowe7limhntibu7j6egchm(effect@4.1.1)
+        specifier: ^0.1.0
+        version: 0.1.0(effect@4.1.1)
       '@eoa/identity':
-        specifier: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreie75fmaf5gzjywa55anzke5y2yllqecrbotzbrwlvbjz774i6hfri
-        version: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreie75fmaf5gzjywa55anzke5y2yllqecrbotzbrwlvbjz774i6hfri(effect@4.1.1)
+        specifier: ^0.1.0
+        version: 0.1.0(effect@4.1.1)
       '@eoa/oauth':
-        specifier: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreieh72ycxtxpdca42dbid2fz5633hk4xtyz7yuneuwztiz42yz6kne
-        version: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreieh72ycxtxpdca42dbid2fz5633hk4xtyz7yuneuwztiz42yz6kne(effect@4.1.1)
+        specifier: ^0.1.0
+        version: 0.1.0(effect@4.1.1)
       '@eoa/xrpc':
-        specifier: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreiefnwbuvns3ffeinjnthjhmmsolhntewrkbmmfczpwftm6sliopga
-        version: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreiefnwbuvns3ffeinjnthjhmmsolhntewrkbmmfczpwftm6sliopga(effect@4.1.1)
+        specifier: ^0.1.0
+        version: 0.1.0(effect@4.1.1)
       bluesky-post-embed:
         specifier: ^1.0.6
         version: 1.0.6
@@ -242,39 +234,33 @@ packages:
     peerDependencies:
       effect: ^4.1.1
 
-  '@eoa/core@https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreihm2pefagq4hcykniokvgrvqbxve72amhb2hxjk7rfsh3puobfzqi':
+  '@eoa/core@0.1.0':
     resolution: {integrity: sha512-Nqnk4ArMxRSnty8H8RBA/MBiMVS9V0dWb7NJfrUc60RAfaYAhu2BcP0YRw22rzh+FArlAECHdsuM9cIS7HYHlQ==, tarball: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreihm2pefagq4hcykniokvgrvqbxve72amhb2hxjk7rfsh3puobfzqi}
-    version: 0.1.0
     peerDependencies:
       effect: 4.1.1
 
-  '@eoa/crypto@https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreige3bqmqabw6sy3prwazftizdrsgyyneowe7limhntibu7j6egchm':
+  '@eoa/crypto@0.1.0':
     resolution: {integrity: sha512-JDa0iHRvGEvUAgEMA8L9i7WIgq+RSio6EyAEMRzAwG47j6zxMdObg4Q2cHwt1akWCqxqeoLSLBO07UfRiE2coQ==, tarball: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreige3bqmqabw6sy3prwazftizdrsgyyneowe7limhntibu7j6egchm}
-    version: 0.1.0
     peerDependencies:
       effect: 4.1.1
 
-  '@eoa/identity@https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreie75fmaf5gzjywa55anzke5y2yllqecrbotzbrwlvbjz774i6hfri':
+  '@eoa/identity@0.1.0':
     resolution: {integrity: sha512-hCAONwn811QGzb3LrECiLJC19sQFKMZ8Uet+10ewmcEEDVIcd6iI8T9jvm7Vm0NxPxGvv864DDdtv8hDCIIwCA==, tarball: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreie75fmaf5gzjywa55anzke5y2yllqecrbotzbrwlvbjz774i6hfri}
-    version: 0.1.0
     peerDependencies:
       effect: 4.1.1
 
-  '@eoa/lexicon@https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreib6jnlx7r4u3iscexi4rayrgp4iujzs7jo5wf7gvfijv5wwyyuscm':
-    resolution: {integrity: sha512-um6oCfPiTFH+1KFbpycNVJezcWmBk095T1PRtWYLZ8B1PYwDV9Ryrsv5hPghadWFYlcWefpFWRkQ+pEKyltW0Q==, tarball: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreib6jnlx7r4u3iscexi4rayrgp4iujzs7jo5wf7gvfijv5wwyyuscm}
-    version: 0.1.0
+  '@eoa/lexicon@0.1.0':
+    resolution: {integrity: sha512-3gs10EVxNv1+wquBgKp5CtmYo3PVfLGCVAhHcHhP7XJU8mGSq1CMlxqCxtIQve3jzUEqkv4OSmkTSMfojmcRHg==, tarball: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreif5vkzxrscmjkkxzynplwk52jyi2g3u6fbhrwq63mdxbujzsb52ty}
     peerDependencies:
       effect: 4.1.1
 
-  '@eoa/oauth@https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreieh72ycxtxpdca42dbid2fz5633hk4xtyz7yuneuwztiz42yz6kne':
+  '@eoa/oauth@0.1.0':
     resolution: {integrity: sha512-9ZKO9Zl4Yf9XNe4qT/jbHSLs3bFYm1P6/M/qoRhJHig0A6V1o/H06e4xM9yi2NiB9CmWdLAkGbtFRyOZ00hgiw==, tarball: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreieh72ycxtxpdca42dbid2fz5633hk4xtyz7yuneuwztiz42yz6kne}
-    version: 0.1.0
     peerDependencies:
       effect: 4.1.1
 
-  '@eoa/xrpc@https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreiefnwbuvns3ffeinjnthjhmmsolhntewrkbmmfczpwftm6sliopga':
+  '@eoa/xrpc@0.1.0':
     resolution: {integrity: sha512-E4PefCxb8d4pXZ5980bc+jv2NAy2Y3HCKqisccpZ0pyHRwZ8JOpAMyz0U5FcN3N4UAUKHT/9a1cqIrS7uPR+qA==, tarball: https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreiefnwbuvns3ffeinjnthjhmmsolhntewrkbmmfczpwftm6sliopga}
-    version: 0.1.0
     peerDependencies:
       effect: 4.1.1
 
@@ -1497,8 +1483,8 @@ packages:
   tslib@2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
 
-  turndown@7.2.4:
-    resolution: {integrity: sha512-I8yFsfRzmzK0WV1pNNOA4A7y4RDfFxPRxb3t+e3ui14qSGOxGtiSP6GjeX+Y6CHb7HYaFj7ECUD7VE5kQMZWGQ==}
+  turndown@7.2.5:
+    resolution: {integrity: sha512-EKZvCCFHh8sWttpAMs10U6niZFJ2cpz8LkCPlylxoG4JcHF50J7EHnnBW3AY1qXtUMu7kDjCp7dnggB1sIbqEQ==}
     engines: {node: '>=18', npm: '>=9'}
 
   typescript@5.9.3:
@@ -1874,37 +1860,37 @@ snapshots:
     dependencies:
       effect: 4.1.1
 
-  '@eoa/core@https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreihm2pefagq4hcykniokvgrvqbxve72amhb2hxjk7rfsh3puobfzqi(effect@4.1.1)':
+  '@eoa/core@0.1.0(effect@4.1.1)':
     dependencies:
       effect: 4.1.1
 
-  '@eoa/crypto@https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreige3bqmqabw6sy3prwazftizdrsgyyneowe7limhntibu7j6egchm(effect@4.1.1)':
+  '@eoa/crypto@0.1.0(effect@4.1.1)':
     dependencies:
-      '@eoa/core': https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreihm2pefagq4hcykniokvgrvqbxve72amhb2hxjk7rfsh3puobfzqi(effect@4.1.1)
+      '@eoa/core': 0.1.0(effect@4.1.1)
       '@noble/curves': 2.4.0
       cobblestone-encryption: 0.1.0
       effect: 4.1.1
 
-  '@eoa/identity@https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreie75fmaf5gzjywa55anzke5y2yllqecrbotzbrwlvbjz774i6hfri(effect@4.1.1)':
+  '@eoa/identity@0.1.0(effect@4.1.1)':
     dependencies:
-      '@eoa/core': https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreihm2pefagq4hcykniokvgrvqbxve72amhb2hxjk7rfsh3puobfzqi(effect@4.1.1)
-      '@eoa/crypto': https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreige3bqmqabw6sy3prwazftizdrsgyyneowe7limhntibu7j6egchm(effect@4.1.1)
+      '@eoa/core': 0.1.0(effect@4.1.1)
+      '@eoa/crypto': 0.1.0(effect@4.1.1)
       effect: 4.1.1
 
-  '@eoa/lexicon@https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreib6jnlx7r4u3iscexi4rayrgp4iujzs7jo5wf7gvfijv5wwyyuscm(effect@4.1.1)':
+  '@eoa/lexicon@0.1.0(effect@4.1.1)':
     dependencies:
-      '@eoa/core': https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreihm2pefagq4hcykniokvgrvqbxve72amhb2hxjk7rfsh3puobfzqi(effect@4.1.1)
+      '@eoa/core': 0.1.0(effect@4.1.1)
       effect: 4.1.1
 
-  '@eoa/oauth@https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreieh72ycxtxpdca42dbid2fz5633hk4xtyz7yuneuwztiz42yz6kne(effect@4.1.1)':
+  '@eoa/oauth@0.1.0(effect@4.1.1)':
     dependencies:
-      '@eoa/crypto': https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreige3bqmqabw6sy3prwazftizdrsgyyneowe7limhntibu7j6egchm(effect@4.1.1)
+      '@eoa/crypto': 0.1.0(effect@4.1.1)
       effect: 4.1.1
 
-  '@eoa/xrpc@https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreiefnwbuvns3ffeinjnthjhmmsolhntewrkbmmfczpwftm6sliopga(effect@4.1.1)':
+  '@eoa/xrpc@0.1.0(effect@4.1.1)':
     dependencies:
-      '@eoa/core': https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreihm2pefagq4hcykniokvgrvqbxve72amhb2hxjk7rfsh3puobfzqi(effect@4.1.1)
-      '@eoa/lexicon': https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreib6jnlx7r4u3iscexi4rayrgp4iujzs7jo5wf7gvfijv5wwyyuscm(effect@4.1.1)
+      '@eoa/core': 0.1.0(effect@4.1.1)
+      '@eoa/lexicon': 0.1.0(effect@4.1.1)
       effect: 4.1.1
 
   '@jridgewell/resolve-uri@3.1.2': {}
@@ -2445,7 +2431,7 @@ snapshots:
     optionalDependencies:
       linkedom: 0.18.15
       temml: 0.13.5
-      turndown: 7.2.4
+      turndown: 7.2.5
     transitivePeerDependencies:
       - canvas
 
@@ -2973,7 +2959,7 @@ snapshots:
 
   tslib@2.4.0: {}
 
-  turndown@7.2.4:
+  turndown@7.2.5:
     dependencies:
       '@mixmark-io/domino': 2.2.0
     optional: true
