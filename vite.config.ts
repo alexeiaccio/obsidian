@@ -47,4 +47,16 @@ export default defineConfig({
 			alwaysBundle: [/.*/],
 		},
 	},
+	test: {
+		server: {
+			deps: {
+				// The `@eoa/*` overrides are getBlob URLs, so pnpm's store directory
+				// name carries `%3A` (the `did:web:…` in the query). Node decodes that
+				// when it resolves an externalized import and then looks for a
+				// directory that does not exist; letting Vite resolve these packages
+				// keeps the encoded path out of the loader.
+				inline: [/@eoa\//],
+			},
+		},
+	},
 });

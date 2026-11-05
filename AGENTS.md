@@ -9,7 +9,7 @@ and canvas lenses.
 ## Build
 
 ```bash
-pnpm install       # needs the registry that serves @eoa/* (see README)
+pnpm install       # @eoa/* resolves from PDS blobs via pnpm-workspace.yaml
 pnpm build         # tsc -noEmit, then vp pack → ./main.js
 pnpm dev           # vp pack --watch
 pnpm test          # vp test --run

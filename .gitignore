@@ -13,14 +13,6 @@ data.json
 .vite
 .vp
 
-# The lockfile is generated against the registry that serves @eoa/*, which is
-# not public; a committed one would pin paths this machine cannot see.
-pnpm-lock.yaml
-
-# A local shim for a machine that cannot reach that registry yet: tarballs packed
-# out of the monorepo, wired up by pnpm-workspace.yaml.
-pnpm-workspace.yaml
-.eoa-packs/
 
 # Intellij
 *.iml

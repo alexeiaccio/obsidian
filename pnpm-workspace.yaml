@@ -1,0 +1,21 @@
+# The `@eoa` packages are not on npm: each release is a record on the org PDS
+# (`ing.lexicon.package.release`) whose `artifact.url` is a getBlob URL, and the
+# overrides below are those URLs. The version in `package.json` is decorative —
+# the CID in the URL chooses the bytes.
+#
+# `blockExoticSubdeps` is required: inside the tarballs the packages name each
+# other as `0.1.0`, and once those names are redirected to URLs pnpm treats them
+# as exotic subdependencies and refuses the install otherwise.
+#
+# Regenerate after a release:
+#   curl -s "https://pds.accio.blue/xrpc/com.atproto.repo.listRecords?repo=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&collection=ing.lexicon.package.release" \
+#     | jq -r '.records[] | "  '"'"'\(.value.name)'"'"': '"'"'\(.value.artifact.url)'"'"'"'"
+blockExoticSubdeps: false
+
+overrides:
+  '@eoa/core': 'https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreihm2pefagq4hcykniokvgrvqbxve72amhb2hxjk7rfsh3puobfzqi'
+  '@eoa/lexicon': 'https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreib6jnlx7r4u3iscexi4rayrgp4iujzs7jo5wf7gvfijv5wwyyuscm'
+  '@eoa/crypto': 'https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreige3bqmqabw6sy3prwazftizdrsgyyneowe7limhntibu7j6egchm'
+  '@eoa/identity': 'https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreie75fmaf5gzjywa55anzke5y2yllqecrbotzbrwlvbjz774i6hfri'
+  '@eoa/oauth': 'https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreieh72ycxtxpdca42dbid2fz5633hk4xtyz7yuneuwztiz42yz6kne'
+  '@eoa/xrpc': 'https://pds.accio.blue/xrpc/com.atproto.sync.getBlob?did=did%3Aweb%3Apds.accio.blue%3A10I1g80ojTXdDkI_lxtMRg&cid=bafkreiefnwbuvns3ffeinjnthjhmmsolhntewrkbmmfczpwftm6sliopga'
